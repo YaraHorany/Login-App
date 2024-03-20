@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import '../signup/signup_screen.dart';
 import 'login_form_widget.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -10,7 +12,7 @@ class LoginScreen extends StatelessWidget {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(30),
             child: Column(
               children: [
                 const Text("Log In"),
@@ -70,7 +72,12 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text("Don't have an Account?"),
-                    TextButton(onPressed: () {}, child: const Text("Sign up")),
+                    TextButton(
+                      onPressed: () {
+                        Get.to(const SignUpScreen());
+                      },
+                      child: const Text("Sign up"),
+                    ),
                   ],
                 ),
               ],
