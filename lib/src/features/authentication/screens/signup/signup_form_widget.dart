@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../controllers/signup_controller.dart';
 
 class SignUpFormWidget extends StatelessWidget {
   const SignUpFormWidget({
@@ -7,11 +9,16 @@ class SignUpFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SignUpController());
+    final _formKey = GlobalKey<FormState>();
+
     return Form(
+      key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFormField(
+            controller: controller.fullName,
             decoration: const InputDecoration(
               prefixIcon: Icon(
                 Icons.person_outline_rounded,
@@ -33,6 +40,7 @@ class SignUpFormWidget extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           TextFormField(
+            controller: controller.email,
             decoration: const InputDecoration(
               prefixIcon: Icon(
                 Icons.email_outlined,
@@ -54,6 +62,7 @@ class SignUpFormWidget extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           TextFormField(
+            controller: controller.phoneNo,
             decoration: const InputDecoration(
               prefixIcon: Icon(
                 Icons.numbers,
@@ -75,6 +84,7 @@ class SignUpFormWidget extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           TextFormField(
+            controller: controller.password,
             decoration: const InputDecoration(
               prefixIcon: Icon(
                 Icons.remove_red_eye_sharp,
@@ -98,7 +108,13 @@ class SignUpFormWidget extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  SignUpController.instance.registerUser(
+                      controller.email.text.trim(),
+                      controller.password.text.trim());
+                }
+              },
               child: const Text("Sign Up"),
             ),
           ),
